@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smc-trading-bot"
+version = "0.1.0"
+description = "Smart Money Concepts trading alert bot"
+requires-python = ">=3.14"
+dependencies = [
+    "alembic",
+    "psycopg[binary]",
+    "python-dotenv",
+    "SQLAlchemy",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

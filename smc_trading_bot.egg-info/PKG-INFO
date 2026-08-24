@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: smc-trading-bot
+Version: 0.1.0
+Summary: Smart Money Concepts trading alert bot
+Requires-Python: >=3.14
+Requires-Dist: alembic
+Requires-Dist: psycopg[binary]
+Requires-Dist: python-dotenv
+Requires-Dist: SQLAlchemy
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
