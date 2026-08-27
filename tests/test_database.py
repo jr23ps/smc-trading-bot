@@ -8,17 +8,29 @@ def test_create_and_read_candle():
     session = SessionLocal()
 
     try:
+        candle_timestamp = datetime(
+            2026,
+            8,
+            24,
+            14,
+            30,
+            tzinfo=timezone.utc,
+        )
+
+        existing = session.query(Candle).filter_by(
+            symbol="MES",
+            timeframe="1m",
+            timestamp=candle_timestamp,
+        ).first()
+
+        if existing:
+            session.delete(existing)
+            session.commit()
+
         candle = Candle(
             symbol="MES",
             timeframe="1m",
-            timestamp=datetime(
-                2026,
-                8,
-                24,
-                14,
-                30,
-                tzinfo=timezone.utc,
-            ),
+            timestamp=candle_timestamp,
             open=6500.00,
             high=6503.00,
             low=6499.50,

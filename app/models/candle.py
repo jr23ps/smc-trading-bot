@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, Integer, Numeric, String
+from sqlalchemy import DateTime, Integer, Numeric, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database.base import Base
@@ -8,6 +8,15 @@ from app.database.base import Base
 
 class Candle(Base):
     __tablename__ = "candles"
+
+    __table_args__ = (
+        UniqueConstraint(
+            "symbol",
+            "timeframe",
+            "timestamp",
+            name="uq_candle_symbol_timeframe_timestamp",
+        ),
+    )
 
     id: Mapped[int] = mapped_column(
         Integer,
@@ -56,6 +65,16 @@ class Candle(Base):
     volume: Mapped[int] = mapped_column(
         Integer,
         nullable=False,
+    )
+
+    vwap: Mapped[float | None] = mapped_column(
+        Numeric(12, 4),
+        nullable=True,
+    )
+
+    trade_count: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
     )
 
     def __repr__(self) -> str:
